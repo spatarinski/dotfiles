@@ -94,7 +94,7 @@ vnoremap <leader>P "0p
 " Plugins
 """""""""""""""""""""""""""""""
 
-call plug#begin('~/vimfiles/plugged')
+call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
