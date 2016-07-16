@@ -1,0 +1,67 @@
+[user]
+  name = Stanimir Patarinski
+  email = spatarinski@gmail.com
+
+[push]
+  default = tracking
+
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+
+[core]
+  excludesfile = ~/.gitignore
+  autocrlf = false
+  whitespace = cr-at-eol
+	editor = vim
+
+[format]
+  pretty = %Cblue%h%Creset %Cgreen[%cr]%Creset (%an) %s
+
+[alias]
+  c = commit -m
+  ch = cherry-pick
+  co = checkout
+  pr = pull --rebase
+  a = add
+  d = diff
+  dic = diff --cached
+  ps = push
+  s = status
+  out = log origin..HEAD
+  qpl = log --pretty=\"%Cblue%h%Creset %Cgreen[%cr]%Creset %s\" origin/production..origin/master
+  l = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %Cblue%an%Creset' --abbrev-commit --date=relative
+  ci = commit
+  ca = commit --amend
+  eu = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+  au = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+  cp = "!git checkout production && git pull --rebase && git cherry-pick master && git push && git checkout master"
+  cpp = "!f() { git checkout production && git pull --rebase && git cherry-pick $1 && git push && git checkout master ; }; f"
+  catchup = "!git fetch origin; git rebase origin/master"
+  ctags = !.git/hooks/ctags
+  # Alternate log display from Scott Chacon
+  lol = log --pretty=oneline --abbrev-commit --graph --decorate
+  sub = submodule update --init
+
+  # Other useful aliases:
+  unstage = reset HEAD
+  staged = diff --cached
+  unstaged = diff
+
+  jshint = "!gulp jshint --files=\"{`git diff --name-only | tr '\n' ','`}\""
+
+[branch]
+  autosetuprebase = always
+
+[merge]
+  tool = fugitive
+
+[mergetool "fugitive"]
+  cmd = vim -f -c \"Gdiff\" \"$MERGED\"
+
+[mergetool]
+  keepBackup = false
+
+[diff]
+	algorithm = patience
