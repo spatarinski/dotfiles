@@ -34,12 +34,13 @@ for name in *; do
   fi
 done
 
-if [ ! -d "$HOME/.vim/bundle" ]; then
-    echo "Installing vundle"
-    mkdir -p ~/.vim/bundle/
-    git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+if [ ! -d "$HOME/.vim/plugged" ]; then
+    echo "Installing pluggins"
+    mkdir -p ~/.vim/plugged/
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     mkdir -p ~/.vim/backup
     mkdir -p ~/.vim/undo
     mkdir -p ~/.vim/swp
-    vim +BundleInstall +qall
+    vim +PlugInstall +qall
 fi
