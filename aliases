@@ -1,0 +1,20 @@
+#!/bin/zsh
+
+alias g="git"
+
+case `uname -a` in
+  *Linux*)
+    alias unsafe-chrome='chromium-browser --disable-web-security';
+    alias tmux="tmux -2";
+    alias ack='ack-grep';
+    alias v="vim";
+    alias ls='ls --color=auto';;
+  *Darwin*)
+    alias unsafe-chrome='open /Applications/Google\ Chrome.app --args --disable-web-security';
+    alias tmux="tmux -2 -u";
+    alias vim="mvim -v"
+    # what?
+    ;;
+esac
+
+alias ll='ls -la'
