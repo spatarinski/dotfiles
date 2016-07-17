@@ -66,31 +66,13 @@ HISTFILE=~/.history
 setopt APPEND_HISTORY
 
 # homebrew
+source ~/.profile
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-export PATH="./node_modules/.bin:$PATH"
-export PATH="$HOME/.rbenv/bin:$PATH"
 
-# Node/NPM
-export PATH="$HOME/.npm-packages/bin:$PATH" # Local NPM location
-export PATH="./node_modules/.bin:$PATH" # In project
-export NODE_PATH=/usr/local/lib/node_modules:/usr/lib/node_modules:$NODE_PATH
-
-if [ -d "$HOME/.rbenv" ]; then
-    eval "$(rbenv init -)"
-fi
-
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
 
 alias restart-mono="sudo launchctl stop mono.fcgi; sudo launchctl start mono.fcgi"
 
-eval "$(grunt --completion=zsh)"
 eval "$(gulp --completion=zsh)"
-
-
-# added by travis gem
-[ -f /Users/pivanov/.travis/travis.sh ] && source /Users/pivanov/.travis/travis.sh
 
 compdef _tests t
 
@@ -159,3 +141,5 @@ elif type compctl &>/dev/null; then
   compctl -K _npm_completion npm
 fi
 ###-end-npm-completion-###
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
