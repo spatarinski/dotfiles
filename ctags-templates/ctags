@@ -1,0 +1,2 @@
+#!/bin/sh
+find src | ctags -L- --tag-relative -f.git/tags --language-force=JavaScript
