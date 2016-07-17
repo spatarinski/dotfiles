@@ -16,7 +16,7 @@ set wildignore+=deploy/**,dist/**,release/**,*.min.js,*.js.map
 set hlsearch incsearch ignorecase smartcase
 
 " GUI, should wrap in has(gui)
-set guifont=Source\ Code\ Pro\ Light:h14 anti linespace=0
+" set guifont=Source\ Code\ Pro\ Light:h14 anti linespace=0
 set guioptions=aci
 
 " Terminal
@@ -58,7 +58,8 @@ nnoremap <S-Tab> <<
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 nnoremap <F9> :bw<CR>
-nnoremap <F8> :setlocal spell! spell?<CR>
+nnoremap <F8> :TagbarToggle<CR>
+nnoremap <F7> :setlocal spell! spell?<CR>
 inoremap jk <esc>
 
 noremap <C-J> <C-W>w
@@ -95,6 +96,8 @@ vnoremap <leader>P "0p
 """""""""""""""""""""""""""""""
 
 call plug#begin('~/.vim/plugged')
+
+Plug 'majutsushi/tagbar'
 
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
@@ -235,6 +238,7 @@ Plug 'tpope/vim-commentary'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 noremap <Leader>n :NERDTreeToggle<CR>
+map <leader>r :NERDTreeFind<cr>
 """"""""""""""""""""""""""""""""""""""
 
 call plug#end()
