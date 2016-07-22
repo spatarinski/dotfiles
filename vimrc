@@ -15,23 +15,26 @@ set wildignore+=deploy/**,dist/**,release/**,*.min.js,*.js.map
 " Search
 set hlsearch incsearch ignorecase smartcase
 
-" GUI, should wrap in has(gui)
-" set guifont=Source\ Code\ Pro\ Light:h14 anti linespace=0
-set guioptions=aci
-
 " Terminal
 set t_Co=256 mouse=a ttymouse=xterm2
 
 " Use modeline overrides
 set modeline modelines=10
+set splitright
 
 " Undo and backup
 set undofile
 set nobackup
 set nowritebackup
-set undodir=~/.vim/undo
-set backupdir=~/.vim/backup
-set directory=~/.vim/swp
+if (has("win32") || has("win64"))
+    set undodir=~/vimfiles/undo
+    set backupdir=~/vimfiles/backup
+    set directory=~/vimfiles/swp
+else
+    set undodir=~/.vim/undo
+    set backupdir=~/.vim/backup
+    set directory=~/.vim/swp
+endif
 
 " Remember last location in file
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
@@ -43,15 +46,13 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufReadPost *cshtml              set filetype=html
 autocmd BufRead,BufEnter .babelrc        set filetype=javascript
 
-""""""""""""""""""""""""""""""""""""""
-" Shortcuts
 set pastetoggle=<F10>
 
 let mapleader=" "
 let maplocalleader = "|"
-nnoremap <Leader>w :w<CR>
-nnoremap <Leader>ev :e $MYVIMRC<cr>
-nnoremap <Leader>sv :so $MYVIMRC<cr>
+nnoremap <leader>w :w<CR>
+nnoremap <leader>ev :e $MYVIMRC<cr>
+nnoremap <leader>sv :so $MYVIMRC<cr>
 cnoremap <C-n> <Up>
 nnoremap <Tab> >>
 nnoremap <S-Tab> <<
@@ -60,7 +61,7 @@ vnoremap <S-Tab> <gv
 nnoremap <F9> :bw<CR>
 nnoremap <F8> :TagbarToggle<CR>
 nnoremap <F7> :setlocal spell! spell?<CR>
-inoremap jk <esc>
+
 
 noremap <C-J> <C-W>w
 noremap <C-K> <C-W>W
@@ -95,9 +96,22 @@ vnoremap <leader>P "0p
 " Plugins
 """""""""""""""""""""""""""""""
 
-call plug#begin('~/.vim/plugged')
+if (has("win32") || has("win64"))
+  call plug#begin('~/vimfiles/plugged')
+else
+  call plug#begin('~/.vim/plugged')
+endif
 
 Plug 'majutsushi/tagbar'
+let g:tagbar_type_javascript = {
+    \ 'ctagstype' : 'JavaScript',
+    \ 'kinds'     : [
+        \ 'o:objects',
+        \ 'f:functions',
+        \ 'a:arrays',
+        \ 's:strings'
+    \ ]
+\ }
 
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
@@ -112,7 +126,7 @@ Plug 'NLKNguyen/papercolor-theme'
 " ack vim
 Plug 'mileszs/ack.vim'
 if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
+  let g:ackprg = 'c:\Users\patarinski\.ag\ag --vimgrep'
 endif
 
 """"""""""""""""""""""""""""""""""""""
@@ -155,7 +169,8 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'Valloric/YouCompleteMe'
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
-
+nnoremap <F12> :TernDef<CR>
+nnoremap <leader><F12> :TernRefs<CR>
 """"""""""""""""""""""""""""""""""""""
 " vim-indent-guides
 " Plug 'nathanaelkane/vim-indent-guides'
@@ -175,27 +190,20 @@ Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 " npm i -g jshint eslint babel-eslint eslint-plugin-react
 Plug 'scrooloose/syntastic'
 Plug 'ruanyl/vim-fixmyjs'
+let g:syntastic_check_on_open=1
+let g:syntastic_java_checkers=['']
+let g:syntastic_javascript_checkers=['jshint', 'eslint', 'standard']
 
-let g:syntastic_error_symbol = "✗"
-let g:syntastic_warning_symbol = "⚠"
-
-let g:syntastic_json_checkers = ["jshint"]
-
-let g:syntastic_typescript_checkers = []
-
-let g:syntastic_javascript_checkers = ["eslint"]
-let g:syntastic_javascript_eslint_exec = 'eslint'
-
-nnoremap <Leader>f :Fixmyjs<CR>
+nnoremap <leader>f :Fixmyjs<CR>
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 
-autocmd BufRead,BufEnter,BufNew *.jsx             let b:syntastic_checkers = ["eslint"]
+autocmd BufRead,BufEnter,BufNew *.jsx             let b:syntastic_checkers = ["jshint"]
 autocmd BufRead,BufEnter .babelrc                 let b:syntastic_checkers = ["jshint"]
 autocmd BufRead,BufEnter *.json                   let b:syntastic_checkers = ["jshint"]
-autocmd BufRead,BufEnter,BufNew */kendo-*/*.js    let b:syntastic_checkers = ["eslint"]
+autocmd BufRead,BufEnter,BufNew */kendo-*/*.js    let b:syntastic_checkers = ["jshint"]
 
 """"""""""""""""""""""""""""""""""""""
 
@@ -204,7 +212,9 @@ autocmd BufRead,BufEnter,BufNew */kendo-*/*.js    let b:syntastic_checkers = ["e
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-let g:airline_powerline_fonts=1
+" let g:airline_powerline_fonts=1
+let g:airline_left_sep=''
+let g:airline_right_sep=''
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_tab_nr = 0
@@ -227,31 +237,35 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_max_files = 0
 let g:ctrlp_custom_ignore = '\v[\/](node_modules)$'
 
-if executable("ag")
-  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --ignore ''.git'' --ignore ''.DS_Store'' --ignore ''node_modules'' --hidden -g ""'
-endif
-
-Plug 'tpope/vim-commentary'
-
 """"""""""""""""""""""""""""""""""""""
 " NERDTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-noremap <Leader>n :NERDTreeToggle<CR>
+noremap <leader>n :NERDTreeToggle<CR>
 map <leader>r :NERDTreeFind<cr>
 """"""""""""""""""""""""""""""""""""""
 
+Plug 'othree/html5.vim'
 call plug#end()
 """"""""""""""""""""""""""""""""""""""
 
 " Set this after the plugins have been loaded
 set background=dark
+" colorscheme Solarized
 colorscheme PaperColor
 
-" Highlight all instances of word under cursor, when idle.
-" Useful when studying strange source code.
-" Type z/ to toggle highlighting on/off.
-nnoremap <Leader>z :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+" GUI, should wrap in has(gui)
+if has("gui_running")
+    if (has("win32") || has("win64"))
+        set guifont=Consolas:h12:cDEFAULT anti linespace=0
+    endif
+
+  set guioptions=aci
+endif
+
+set relativenumber
+set list
+
 function! AutoHighlightToggle()
   let @/ = ''
   if exists('#auto_highlight')
@@ -270,3 +284,37 @@ function! AutoHighlightToggle()
     return 1
   endif
 endfunction
+
+" Do not close gui on :q if it is not the last editing file.
+function! NumberOfWindows()
+  let i = 1
+  while winbufnr(i) != -1
+  let i = i+1
+  endwhile
+  return i - 1
+endfunction
+
+function! DonotQuitLastWindow()
+  if NumberOfWindows() != 1
+    let v:errmsg = ""
+    silent! quit
+    if v:errmsg != ""
+        "echohl ErrorMsg | echomsg v:errmsg | echohl NONE
+        "echoerr v:errmsg
+        echohl ErrorMsg | echo v:errmsg | echohl NONE
+    endif
+  else
+     echohl Error | echo "Can't quit the last window..." | echohl None
+  endif
+endfunction
+
+if has("gui_running")
+    cnoreabbrev <expr> q getcmdtype() == ":" && getcmdline() == 'q' ? 'call DonotQuitLastWindow()' : 'q'
+    cnoreabbrev <expr> qa getcmdtype() == ":" && getcmdline() == 'qa' ? 'call DonotQuitLastWindow()' : 'qa'
+endif
+
+" Highlight all instances of word under cursor, when idle.
+" Useful when studying strange source code.
+" Type z/ to toggle highlighting on/off.
+nnoremap <leader>z :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+inoremap jk <esc>
