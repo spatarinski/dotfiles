@@ -49,7 +49,6 @@ autocmd BufRead,BufEnter .babelrc        set filetype=javascript
 set pastetoggle=<F10>
 
 let mapleader=" "
-let maplocalleader = "|"
 nnoremap <leader>w :w<CR>
 nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>sv :so $MYVIMRC<cr>
@@ -91,6 +90,8 @@ nnoremap <leader>a ggVG
 nnoremap <leader>P "0p
 vnoremap <leader>P "0p
 
+"map ; to open command prompt
+nnoremap ; :
 
 """""""""""""""""""""""""""""""
 " Plugins
@@ -126,7 +127,7 @@ Plug 'NLKNguyen/papercolor-theme'
 " ack vim
 Plug 'mileszs/ack.vim'
 if executable('ag')
-  let g:ackprg = 'c:\Users\patarinski\.ag\ag --vimgrep'
+  let g:ackprg = 'ag --vimgrep'
 endif
 
 """"""""""""""""""""""""""""""""""""""
@@ -207,14 +208,16 @@ autocmd BufRead,BufEnter,BufNew */kendo-*/*.js    let b:syntastic_checkers = ["j
 
 """"""""""""""""""""""""""""""""""""""
 
+Plug 'tpope/vim-commentary'
+
 """"""""""""""""""""""""""""""""""""""
 " vim-airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-" let g:airline_powerline_fonts=1
-let g:airline_left_sep=''
-let g:airline_right_sep=''
+" let g:airline_left_sep=''
+" let g:airline_right_sep=''
+let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_tab_nr = 0
@@ -258,6 +261,8 @@ colorscheme PaperColor
 if has("gui_running")
     if (has("win32") || has("win64"))
         set guifont=Consolas:h12:cDEFAULT anti linespace=0
+    else
+        set guifont=Source\ Code\ Pro\ Light:h14 anti linespace=0
     endif
 
   set guioptions=aci
