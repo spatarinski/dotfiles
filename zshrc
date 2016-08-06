@@ -15,6 +15,7 @@ git_prompt_info() {
 
 # enable colored output from ls, etc
 export CLICOLOR=1
+export LSCOLORS=gxfxcxdxbxexexabagacad
 
 # expand functions in the prompt
 setopt prompt_subst
