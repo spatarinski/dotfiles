@@ -91,7 +91,7 @@ nnoremap <leader>P "0p
 vnoremap <leader>P "0p
 
 "map ; to open command prompt
-nnoremap ; :
+" nnoremap ; :
 
 """""""""""""""""""""""""""""""
 " Plugins
@@ -173,6 +173,12 @@ Plug 'int3/vim-extradite'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'Valloric/YouCompleteMe'
+
+if !exists("g:ycm_semantic_triggers")
+  let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers['typescript'] = ['.']
+
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 nnoremap <F12> :TernDef<CR>
 nnoremap <leader><F12> :TernRefs<CR>
@@ -198,18 +204,31 @@ Plug 'ruanyl/vim-fixmyjs'
 let g:syntastic_check_on_open=1
 let g:syntastic_java_checkers=['']
 let g:syntastic_javascript_checkers=['jshint', 'eslint', 'standard']
+let g:syntastic_html_tidy_quiet_messages=1
 
 nnoremap <leader>f :Fixmyjs<CR>
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-
+let syntastic_mode_map = { 'passive_filetypes': ['html'] }
 autocmd BufRead,BufEnter,BufNew *.jsx             let b:syntastic_checkers = ["jshint"]
 autocmd BufRead,BufEnter .babelrc                 let b:syntastic_checkers = ["jshint"]
 autocmd BufRead,BufEnter *.json                   let b:syntastic_checkers = ["jshint"]
 autocmd BufRead,BufEnter,BufNew */kendo-*/*.js    let b:syntastic_checkers = ["jshint"]
 
+""""""""""""""""""""""""""""""""""""""
+Plug 'leafgarland/typescript-vim'
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = '{ "target": "ES5", module": "commonjs", declaration": true, emitDecoratorMetadata": true, experimentalDecorators": true, removeComments": false, noImplicitAny": false }'
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'Quramy/tsuquyomi'
+let g:tsuquyomi_disable_quickfix = 1
+" let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
+""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""
 
 Plug 'tpope/vim-commentary'
@@ -330,3 +349,6 @@ endif
 " Type z/ to toggle highlighting on/off.
 nnoremap <leader>z :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 inoremap jk <esc>
+
+" Ali: to indent json files on save
+autocmd FileType json autocmd BufWritePre <buffer> %!python -m json.tool

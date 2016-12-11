@@ -70,20 +70,7 @@ setopt APPEND_HISTORY
 source ~/.profile
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
-
-alias restart-mono="sudo launchctl stop mono.fcgi; sudo launchctl start mono.fcgi"
-
 eval "$(gulp --completion=zsh)"
-
-compdef _tests t
-
-t () {
-    grunt karma:unit --tests="tests/$1"
-}
-
-_tests () {
-    _arguments "1:test name:_files -g '*.js' -W '$PWD/tests'"
-}
 
 ###-begin-npm-completion-###
 #
