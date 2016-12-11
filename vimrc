@@ -62,10 +62,32 @@ nnoremap <F8> :TagbarToggle<CR>
 nnoremap <F7> :setlocal spell! spell?<CR>
 
 
-noremap <C-J> <C-W>w
-noremap <C-K> <C-W>W
-noremap <C-L> <C-W>l
-noremap <C-H> <C-W>h
+" noremap <C-J> <C-W>w
+" noremap <C-K> <C-W>W
+" noremap <C-L> <C-W>l
+" noremap <C-H> <C-W>h
+
+" Navigation in splits
+""""""""""""""""""""""""""""""
+map <C-h> :call WinMove('h')<cr>
+map <C-j> :call WinMove('j')<cr>
+map <C-k> :call WinMove('k')<cr>
+map <C-l> :call WinMove('l')<cr>
+
+" Window movement shortcuts
+" move to the window in the direction shown, or create a new window
+function! WinMove(key)
+  let t:curwin = winnr()
+  exec "wincmd ".a:key
+  if (t:curwin == winnr())
+    if (match(a:key,'[jk]'))
+      wincmd v
+    else
+    wincmd s
+    endif
+    exec "wincmd ".a:key
+  endif
+endfunction
 
 nnoremap <Tab> >>
 nnoremap <S-Tab> <<
@@ -90,8 +112,8 @@ nnoremap <leader>a ggVG
 nnoremap <leader>P "0p
 vnoremap <leader>P "0p
 
-"map ; to open command prompt
-nnoremap ; :
+" map ; to open command prompt
+" nnoremap ; :
 
 """""""""""""""""""""""""""""""
 " Plugins
@@ -211,6 +233,22 @@ autocmd BufRead,BufEnter *.json                   let b:syntastic_checkers = ["j
 autocmd BufRead,BufEnter,BufNew */kendo-*/*.js    let b:syntastic_checkers = ["jshint"]
 
 """"""""""""""""""""""""""""""""""""""
+" Typescript
+""""""""""""""""""""""""""""""""""""""
+Plug 'leafgarland/typescript-vim'
+Plug 'jason0x43/vim-js-indent'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'Quramy/tsuquyomi'
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_tsc_fname = ''
+" let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
+let g:syntastic_typescript_checkers = ['tsc'] " You shouldn't use 'tsc' checker.
+
+nmap <leader>ti :TsuImport<cr>
+nmap <leader>td :TsuDefinition<cr>
+nmap <leader>tr :TsuReferences<cr>
+
+""""""""""""""""""""""""""""""""""""""
 
 Plug 'tpope/vim-commentary'
 
@@ -256,6 +294,11 @@ map <leader>r :NERDTreeFind<cr>
 """"""""""""""""""""""""""""""""""""""
 
 Plug 'othree/html5.vim'
+
+""""""""""""""""""""""""""""""""""""""
+Plug 'christoomey/vim-tmux-navigator'
+
+""""""""""""""""""""""""""""""""""""""
 call plug#end()
 """"""""""""""""""""""""""""""""""""""
 

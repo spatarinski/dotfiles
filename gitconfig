@@ -55,13 +55,15 @@
   autosetuprebase = always
 
 [merge]
-  tool = fugitive
+	tool = vimdiff
+	conflictstyle = diff3
 
 [mergetool "fugitive"]
   cmd = gvim -f -c \"Gdiff\" \"$MERGED\"
 
 [mergetool]
   keepBackup = false
+	prompt = false
 
 [diff]
 	algorithm = patience

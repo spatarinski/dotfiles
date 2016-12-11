@@ -39,8 +39,8 @@ compinit
 setopt auto_cd
 
 # use vim as an editor
-export EDITOR='mvim -v'
-export SUDO_EDITOR='mvim -v'
+export EDITOR='vim -v'
+export SUDO_EDITOR='vim -v'
 
 # aliases
 if [ -e "$HOME/.aliases" ]; then
@@ -66,25 +66,20 @@ HISTFILE=~/.history
 
 setopt APPEND_HISTORY
 
+if [[ $TERM == xterm ]]; then
+    TERM=xterm-256color
+fi
+
 # homebrew
-source ~/.profile
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+# source ~/.profile
+# export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
+# eval "$(gulp --completion=zsh)"
 
-alias restart-mono="sudo launchctl stop mono.fcgi; sudo launchctl start mono.fcgi"
+# export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-eval "$(gulp --completion=zsh)"
-
-compdef _tests t
-
-t () {
-    grunt karma:unit --tests="tests/$1"
-}
-
-_tests () {
-    _arguments "1:test name:_files -g '*.js' -W '$PWD/tests'"
-}
-
+export NVM_DIR="/home/patarinski/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 ###-begin-npm-completion-###
 #
 # npm command completion script
@@ -143,4 +138,4 @@ elif type compctl &>/dev/null; then
 fi
 ###-end-npm-completion-###
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
