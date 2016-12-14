@@ -8,6 +8,7 @@ case `uname -a` in
     alias tmux="tmux -2";
     alias ack='ack-grep';
     alias v="vim";
+    alias progress-reg="npm login --registry=https://registry.npm.telerik.com/ --scope=@progress";
     alias ls='ls --color=auto';;
   *Darwin*)
     alias unsafe-chrome='open /Applications/Google\ Chrome.app --args --disable-web-security';
