@@ -296,6 +296,8 @@ map <leader>r :NERDTreeFind<cr>
 Plug 'othree/html5.vim'
 
 """"""""""""""""""""""""""""""""""""""
+Plug 'mattn/emmet-vim'
+""""""""""""""""""""""""""""""""""""""
 Plug 'christoomey/vim-tmux-navigator'
 
 """"""""""""""""""""""""""""""""""""""
