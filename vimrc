@@ -174,7 +174,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsEditSplit="vertical"
 """"""""""""""""""""""""""""""""""""""
 
-Plug 'helino/vim-json'
 Plug 'pangloss/vim-javascript'
 
 """"""""""""""""""""""""""""""""""""""

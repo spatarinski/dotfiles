@@ -5,7 +5,7 @@ alias g="git"
 case `uname -a` in
   *Linux*)
     alias unsafe-chrome='chromium-browser --disable-web-security';
-    alias tmux="tmux -2";
+    alias tmux="tmux-next -2";
     alias ack='ack-grep';
     alias v="vim";
     alias progress-reg="npm login --registry=https://registry.npm.telerik.com/ --scope=@progress";
