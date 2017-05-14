@@ -5,7 +5,7 @@ filetype off
 set hidden lazyredraw showmode novisualbell number ttyfast
 
 " Whitespace configuration
-set nowrap tabstop=4 shiftwidth=4 softtabstop=4 expandtab smartindent
+set nowrap tabstop=2 shiftwidth=2 softtabstop=2 expandtab smartindent
 
 " Menu stuff
 set wildmode=list:full
