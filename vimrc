@@ -46,7 +46,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufReadPost *cshtml              set filetype=html
 autocmd BufRead,BufEnter .babelrc        set filetype=javascript
 
-set pastetoggle=<F10>
+" set pastetoggle=<F10>
 
 let mapleader=" "
 nnoremap <leader>w :w<CR>
@@ -58,6 +58,7 @@ nnoremap <S-Tab> <<
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 nnoremap <F9> :bw<CR>
+nnoremap <F10> :NERDTreeToggle <bar> bw<CR>
 nnoremap <F8> :TagbarToggle<CR>
 nnoremap <F7> :setlocal spell! spell?<CR>
 
