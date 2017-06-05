@@ -1,5 +1,7 @@
 set nocompatible
 filetype off
+set noswapfile
+set autoread
 
 " Basics
 set hidden lazyredraw showmode novisualbell number ttyfast
@@ -58,7 +60,7 @@ nnoremap <S-Tab> <<
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 nnoremap <F9> :bw<CR>
-nnoremap <F10> :NERDTreeToggle <bar> bw<CR>
+nnoremap <F10> :NERDTreeToggle <bar> bw <bar> NERDTreeToggle<CR> <C-W>l
 nnoremap <F8> :TagbarToggle<CR>
 nnoremap <F7> :setlocal spell! spell?<CR>
 
@@ -129,9 +131,9 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'mileszs/ack.vim'
 if executable('ag')
     if (has("win32") || has("win64"))
-          let g:ackprg = 'c:\Users\patarinski\.ag\ag --vimgrep'
+          let g:ackprg = 'c:\Users\patarinski\.ag\ag --vimgrep --ingnore node_modules'
     else
-          let g:ackprg = 'ag --vimgrep'
+          let g:ackprg = 'ag --vimgrep --ignore node_modules '
     endif
 endif
 
@@ -180,22 +182,6 @@ endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
 
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
-nnoremap <F12> :TernDef<CR>
-nnoremap <leader><F12> :TernRefs<CR>
-""""""""""""""""""""""""""""""""""""""
-" vim-indent-guides
-" Plug 'nathanaelkane/vim-indent-guides'
-" nnoremap <silent> <leader>ti :IndentGuidesToggle<CR>
-" let g:indent_guides_enable_on_vim_startup=1
-" " let g:indent_guides_auto_colors=0
-
-" augroup indent_guide_settings
-"   autocmd!
-"   autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermfg=white ctermbg=234
-"   autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermfg=white ctermbg=236
-" augroup END
-
-""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""
 " Syntastic!!
 " npm i -g jshint eslint babel-eslint eslint-plugin-react
@@ -227,6 +213,8 @@ autocmd QuickFixCmdPost    l* nested lwindow
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Quramy/tsuquyomi'
 let g:tsuquyomi_disable_quickfix = 1
+nnoremap <F12> :TsuDefinition<CR>
+nnoremap <leader><F12> :TsuReferences<CR>
 " let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
 """"""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""
@@ -351,4 +339,4 @@ nnoremap <leader>z :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 inoremap jk <esc>
 
 " Ali: to indent json files on save
-autocmd FileType json autocmd BufWritePre <buffer> %!python -m json.tool
+" autocmd FileType json autocmd BufWritePre <buffer> %!python -m json.tool

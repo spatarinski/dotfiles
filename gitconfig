@@ -21,10 +21,13 @@
 
 [alias]
   c = commit -m
+  b = branch
+  rb = rebase
   ch = cherry-pick
   co = checkout
   pr = pull --rebase
   a = add
+  bl = branch -r
   d = diff
   dic = diff --cached
   ps = push
@@ -39,6 +42,7 @@
   cp = "!git checkout production && git pull --rebase && git cherry-pick master && git push && git checkout master"
   cpp = "!f() { git checkout production && git pull --rebase && git cherry-pick $1 && git push && git checkout master ; }; f"
   catchup = "!git fetch origin; git rebase origin/master"
+  rbd = "!git fetch origin; git rebase origin/dev"
   ctags = !.git/hooks/ctags
   # Alternate log display from Scott Chacon
   lol = log --pretty=oneline --abbrev-commit --graph --decorate
