@@ -6,6 +6,7 @@ alias iond="npm run ionic:serve:dev"
 alias rmnm="rm -rf node_modules"
 alias rmnmi="rm -rf node_modules && npm i"
 alias rmnmn="rmnmi && node install.dev.js"
+alias rmnmnr="rmnmin && node recompile.js"
 alias gc="cd ~/mercator-sdk-ui && git clean -xdf && cd orderapi-ui/mercator-sdk &&  rmnmn"
 alias gcr="gc && node recompile.js"
 
