@@ -70,6 +70,7 @@ setopt APPEND_HISTORY
 source ~/.profile
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
+export PATH=~/.tmux/plugins/tmux-spotify-info/tmux-spotify-info:$PATH
 
 ###-begin-npm-completion-###
 #
@@ -143,3 +144,43 @@ export NVM_DIR="$HOME/.nvm"
 eval "$(gulp --completion=zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# export MCF_APPS_DASHBOARD=http://ecsb00100ea6.epam.com:8100
+# export MCF_APPS_RULESCENTER=http://ecsb00100ea6.epam.com:8101
+# export MCF_APPS_REFDATA=http://ecsb00100ea6.epam.com:8105
+# export MCF_APPS_REGBROKER=http://ecsb00100ea6.epam.com:4200
+# export MCF_APPS_IAM=http://ecsb00100ea6.epam.com:8110
+#
+# export MCF_API_USERENDPOINT=http://ecsb00100ea6.epam.com:9191
+# export MCF_API_AUTHENDPOINT=http://ecsb00100ea6.epam.com:9191
+# export MCF_API_RULESENDPOINT=http://ecsb00100ea6.epam.com:8040
+# export MCF_API_REFDATAENDPOINT=http://ecsb00100ea6.epam.com:8091
+# export MCF_API_REGBROKERDATAENDPOINT=http://ecsb00100ea6.epam.com:8060
+
+
+
+
+# export MCF_APPS_DASHBOARD=http://127.0.0.1:8100
+# export MCF_APPS_RULESCENTER=http://127.0.0.1:8101
+# export MCF_APPS_REFDATA=http://127.0.0.1:8105
+# export MCF_APPS_REGBROKER=http://127.0.0.1:4200
+# export MCF_APPS_IAM=http://127.0.0.1:8110
+#
+# export MCF_API_USERENDPOINT=http://ecsb00100ea6.epam.com:9191
+# export MCF_API_AUTHENDPOINT=http://ecsb00100ea6.epam.com:9191
+# export MCF_API_RULESENDPOINT=http://ecsb00100ea6.epam.com:8040
+# export MCF_API_REFDATAENDPOINT=http://ecsb00100ea6.epam.com:8091
+# export MCF_API_REGBROKERDATAENDPOINT=http://ecsb00100ea6.epam.com:8060
+#
+
+unset MCF_APPS_DASHBOARD
+unset MCF_APPS_RULESCENTER
+unset MCF_APPS_REFDATA
+unset MCF_APPS_REGBROKER
+unset MCF_APPS_IAM
+
+unset MCF_API_USERENDPOINT
+unset MCF_API_AUTHENDPOINT
+unset MCF_API_RULESENDPOINT
+unset MCF_API_REFDATAENDPOINT
+unset MCF_API_REGBROKERDATAENDPOINT

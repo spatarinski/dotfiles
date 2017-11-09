@@ -1,14 +1,17 @@
 #!/bin/zsh
 
 alias g="git"
-alias ions="npm run ionic:serve"
-alias iond="npm run ionic:serve:dev"
+alias npmd="npm run start:dev"
+alias npms="npm start"
 alias rmnm="rm -rf node_modules"
 alias rmnmi="rm -rf node_modules && npm i"
 alias rmnmn="rmnmi && node install.dev.js"
-alias rmnmnr="rmnmin && node recompile.js"
-alias gc="cd ~/mercator-sdk-ui && git clean -xdf && cd orderapi-ui/mercator-sdk &&  rmnmn"
+alias rmnmnr="rmnmn && node recompile.js"
+alias gc="git clean -xdf && cd orderapi-ui/mercator-sdk &&  rmnmn"
+alias gcxdf="git clean -xdf"
 alias gcr="gc && node recompile.js"
+alias ...="../../"
+alias ....="../../../"
 
 case `uname -a` in
   *Linux*)

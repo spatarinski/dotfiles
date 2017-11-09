@@ -1,7 +1,6 @@
 set nocompatible
 filetype off
 set noswapfile
-set autoread
 
 " Basics
 set hidden lazyredraw showmode novisualbell number ttyfast
@@ -131,9 +130,9 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'mileszs/ack.vim'
 if executable('ag')
     if (has("win32") || has("win64"))
-          let g:ackprg = 'c:\Users\patarinski\.ag\ag --vimgrep --ingnore node_modules'
+          let g:ackprg = 'c:\Users\patarinski\.ag\ag --hidden --vimgrep --ingnore node_modules'
     else
-          let g:ackprg = 'ag --vimgrep --ignore node_modules '
+          let g:ackprg = 'ag --hidden --vimgrep --ignore node_modules --ignore .git '
     endif
 endif
 
@@ -166,15 +165,18 @@ nnoremap <silent> <leader>gw :<C-u>Gwrite<CR>
 nnoremap <silent> <leader>gr :<C-u>Gread<CR>
 nnoremap <silent> <leader>gc :<C-u>Gcommit<CR>
 nnoremap <silent> <leader>gb :<C-u>Gblame<CR>
-nnoremap <silent> <leader>gd :<C-u>Gdiff<CR>
+nnoremap <silent> <leader>gd :<C-u>Gvdiff<CR>
 nnoremap <silent> <leader>gj :<C-u>Gpull<CR>
 nnoremap <silent> <leader>gk :<C-u>Gpush<CR>
 nnoremap <silent> <leader>gf :<C-u>Gfetch<CR>
+Plug 'junegunn/gv.vim'
+nnoremap <silent> <leader>gv :<C-u>GV?<CR>
 
 Plug 'int3/vim-extradite'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'Valloric/YouCompleteMe'
+Plug 'ryanoasis/vim-devicons'
 
 if !exists("g:ycm_semantic_triggers")
   let g:ycm_semantic_triggers = {}
@@ -188,11 +190,10 @@ Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 Plug 'scrooloose/syntastic'
 Plug 'ruanyl/vim-fixmyjs'
 let g:syntastic_check_on_open=1
-let g:syntastic_java_checkers=['']
 let g:syntastic_javascript_checkers=['jshint', 'eslint', 'standard']
+let g:syntastic_typescript_checkers = ['tsuquyomi']
 let g:syntastic_html_tidy_quiet_messages=1
 
-nnoremap <leader>f :Fixmyjs<CR>
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -210,13 +211,21 @@ let g:typescript_compiler_options = '{ "target": "ES5", module": "commonjs", dec
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
+Plug 'Chiel92/vim-autoformat'
+nnoremap <leader>f :Autoformat<CR>
+
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Quramy/tsuquyomi'
 let g:tsuquyomi_disable_quickfix = 1
 nnoremap <F12> :TsuDefinition<CR>
 nnoremap <leader><F12> :TsuReferences<CR>
-" let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
 """"""""""""""""""""""""""""""""""""""
+
+" html
+Plug 'othree/html5.vim'
+Plug 'mattn/emmet-vim'
+Plug 'Valloric/MatchTagAlways'
+Plug 'skwp/vim-html-escape'
 """"""""""""""""""""""""""""""""""""""
 
 Plug 'tpope/vim-commentary'
@@ -254,15 +263,27 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_max_files = 0
 let g:ctrlp_custom_ignore = '\v[\/](node_modules)$'
 
+
+
+""""""""""""""""""""""""""""""""""""""
+" DevIcons
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
+
 """"""""""""""""""""""""""""""""""""""
 " NERDTree
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 noremap <leader>n :NERDTreeToggle<CR>
 map <leader>r :NERDTreeFind<cr>
-""""""""""""""""""""""""""""""""""""""
+let NERDTreeShowHidden=1
+let NERDTreeIgnore=['\.git$[[dir]]']
+let g:NERDTreeWinSize=45
+" let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:NERDTreeAutoDeleteBuffer=1
+let g:WebDevIconsOS = 'Darwin'
+autocmd FileType nerdtree setlocal nolist
 
-Plug 'othree/html5.vim'
+""""""""""""""""""""""""""""""""""""""
 call plug#end()
 """"""""""""""""""""""""""""""""""""""
 
@@ -273,11 +294,11 @@ colorscheme PaperColor
 
 " GUI, should wrap in has(gui)
 if has("gui_running")
-    if (has("win32") || has("win64"))
-        set guifont=Consolas:h12:cDEFAULT anti linespace=0
-    else
-        set guifont=Source\ Code\ Pro\ Light:h14 anti linespace=0
-    endif
+    " if (has("win32") || has("win64"))
+    "     set guifont=Consolas:h12:cDEFAULT anti linespace=0
+    " else
+    "     set guifont=Source\ Code\ Pro\ Light:h14 anti linespace=0
+    " endif
 
   set guioptions=aci
 endif
@@ -340,3 +361,4 @@ inoremap jk <esc>
 
 " Ali: to indent json files on save
 " autocmd FileType json autocmd BufWritePre <buffer> %!python -m json.tool
+set autoread
