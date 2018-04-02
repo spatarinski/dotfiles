@@ -116,14 +116,19 @@ let g:tagbar_type_javascript = {
     \ ]
 \ }
 
+
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-obsession'
+
+Plug 'christoomey/vim-tmux-navigator'
 
 " Color themes
 Plug 'Lokaltog/vim-distinguished'
 Plug 'chriskempson/base16-vim'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'sickill/vim-monokai'
 
 """"""""""""""""""""""""""""""""""""""
 " ack vim
@@ -149,9 +154,11 @@ Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:ycm_key_list_previous_completion=['<Up>']
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+nnoremap <silent> <leader>ue :<C-u>UltiSnipsEdit<CR>
 """"""""""""""""""""""""""""""""""""""
 
 Plug 'pangloss/vim-javascript'
@@ -189,8 +196,15 @@ Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 " npm i -g jshint eslint babel-eslint eslint-plugin-react
 Plug 'scrooloose/syntastic'
 Plug 'ruanyl/vim-fixmyjs'
+let g:fixmyjs_engine = 'tslint'
+let g:fixmyjs_rc_path = '~/mercator-sdk-ui/orderapi-ui/mercator-sdk/'
+let g:fixmyjs_rc_filename = ['tslint.json']
+
+
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_check_on_open=1
-let g:syntastic_javascript_checkers=['jshint', 'eslint', 'standard']
+let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_typescript_checkers = ['tsuquyomi']
 let g:syntastic_html_tidy_quiet_messages=1
 
@@ -199,11 +213,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let syntastic_mode_map = { 'passive_filetypes': ['html'] }
-autocmd BufRead,BufEnter,BufNew *.jsx             let b:syntastic_checkers = ["jshint"]
-autocmd BufRead,BufEnter .babelrc                 let b:syntastic_checkers = ["jshint"]
-autocmd BufRead,BufEnter *.json                   let b:syntastic_checkers = ["jshint"]
-autocmd BufRead,BufEnter,BufNew */kendo-*/*.js    let b:syntastic_checkers = ["jshint"]
-
 """"""""""""""""""""""""""""""""""""""
 Plug 'leafgarland/typescript-vim'
 let g:typescript_compiler_binary = 'tsc'
@@ -216,8 +225,13 @@ nnoremap <leader>f :Autoformat<CR>
 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Quramy/tsuquyomi'
-let g:tsuquyomi_disable_quickfix = 1
+
+let g:tsuquyomi_disable_quickfix = 0
+let g:tsuquyomi_use_vimproc = 1
+let g:syntastic_typescript_checkers = ['']
+
 nnoremap <F12> :TsuDefinition<CR>
+nnoremap <leader>ti :TsuImport<CR>
 nnoremap <leader><F12> :TsuReferences<CR>
 """"""""""""""""""""""""""""""""""""""
 
@@ -226,6 +240,7 @@ Plug 'othree/html5.vim'
 Plug 'mattn/emmet-vim'
 Plug 'Valloric/MatchTagAlways'
 Plug 'skwp/vim-html-escape'
+Plug 'ap/vim-css-color'
 """"""""""""""""""""""""""""""""""""""
 
 Plug 'tpope/vim-commentary'
@@ -283,6 +298,7 @@ let g:NERDTreeAutoDeleteBuffer=1
 let g:WebDevIconsOS = 'Darwin'
 autocmd FileType nerdtree setlocal nolist
 
+Plug 'editorconfig/editorconfig-vim'
 """"""""""""""""""""""""""""""""""""""
 call plug#end()
 """"""""""""""""""""""""""""""""""""""
@@ -362,3 +378,23 @@ inoremap jk <esc>
 " Ali: to indent json files on save
 " autocmd FileType json autocmd BufWritePre <buffer> %!python -m json.tool
 set autoread
+
+" Escape/unescape & < > HTML entities in range (default current line).
+function! HtmlEntities(line1, line2, action)
+  let search = @/
+  let range = 'silent ' . a:line1 . ',' . a:line2
+  if a:action == 0  " must convert &amp; last
+    execute range . 'sno/&lt;/</eg'
+    execute range . 'sno/&gt;/>/eg'
+    execute range . 'sno/&amp;/&/eg'
+  else              " must convert & first
+    execute range . 'sno/&/&amp;/eg'
+    execute range . 'sno/</&lt;/eg'
+    execute range . 'sno/>/&gt;/eg'
+  endif
+  nohl
+  let @/ = search
+endfunction
+command! -range -nargs=1 Entities call HtmlEntities(<line1>, <line2>, <args>)
+" noremap <silent> <Leader>h :Entities 0<CR>
+noremap <silent> <Leader>H :Entities 1<CR>

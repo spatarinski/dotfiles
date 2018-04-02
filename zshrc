@@ -130,12 +130,14 @@ elif type compctl &>/dev/null; then
 fi
 ###-end-npm-completion-###
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:/Users/stanimir_patarinski/.gem/ruby/2.3.0/bin"
 
 export JAVA_HOME=$(/usr/libexec/java_home)
 
 export ANDROID_HOME=~/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+
+export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -144,43 +146,3 @@ export NVM_DIR="$HOME/.nvm"
 eval "$(gulp --completion=zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# export MCF_APPS_DASHBOARD=http://ecsb00100ea6.epam.com:8100
-# export MCF_APPS_RULESCENTER=http://ecsb00100ea6.epam.com:8101
-# export MCF_APPS_REFDATA=http://ecsb00100ea6.epam.com:8105
-# export MCF_APPS_REGBROKER=http://ecsb00100ea6.epam.com:4200
-# export MCF_APPS_IAM=http://ecsb00100ea6.epam.com:8110
-#
-# export MCF_API_USERENDPOINT=http://ecsb00100ea6.epam.com:9191
-# export MCF_API_AUTHENDPOINT=http://ecsb00100ea6.epam.com:9191
-# export MCF_API_RULESENDPOINT=http://ecsb00100ea6.epam.com:8040
-# export MCF_API_REFDATAENDPOINT=http://ecsb00100ea6.epam.com:8091
-# export MCF_API_REGBROKERDATAENDPOINT=http://ecsb00100ea6.epam.com:8060
-
-
-
-
-# export MCF_APPS_DASHBOARD=http://127.0.0.1:8100
-# export MCF_APPS_RULESCENTER=http://127.0.0.1:8101
-# export MCF_APPS_REFDATA=http://127.0.0.1:8105
-# export MCF_APPS_REGBROKER=http://127.0.0.1:4200
-# export MCF_APPS_IAM=http://127.0.0.1:8110
-#
-# export MCF_API_USERENDPOINT=http://ecsb00100ea6.epam.com:9191
-# export MCF_API_AUTHENDPOINT=http://ecsb00100ea6.epam.com:9191
-# export MCF_API_RULESENDPOINT=http://ecsb00100ea6.epam.com:8040
-# export MCF_API_REFDATAENDPOINT=http://ecsb00100ea6.epam.com:8091
-# export MCF_API_REGBROKERDATAENDPOINT=http://ecsb00100ea6.epam.com:8060
-#
-
-unset MCF_APPS_DASHBOARD
-unset MCF_APPS_RULESCENTER
-unset MCF_APPS_REFDATA
-unset MCF_APPS_REGBROKER
-unset MCF_APPS_IAM
-
-unset MCF_API_USERENDPOINT
-unset MCF_API_AUTHENDPOINT
-unset MCF_API_RULESENDPOINT
-unset MCF_API_REFDATAENDPOINT
-unset MCF_API_REGBROKERDATAENDPOINT

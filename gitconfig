@@ -38,13 +38,8 @@
   l = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %Cblue%an%Creset' --abbrev-commit --date=relative
   ci = commit
   ca = commit --amend
-  eu = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
-  au = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
-  cp = "!git checkout production && git pull --rebase && git cherry-pick master && git push && git checkout master"
-  cpp = "!f() { git checkout production && git pull --rebase && git cherry-pick $1 && git push && git checkout master ; }; f"
   catchup = "!git fetch origin; git rebase origin/master"
   rbd = "!git fetch origin; git rebase origin/dev"
-  ctags = !.git/hooks/ctags
   # Alternate log display from Scott Chacon
   lol = log --pretty=oneline --abbrev-commit --graph --decorate
   sub = submodule update --init
