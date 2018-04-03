@@ -148,18 +148,6 @@ map \ <Plug>(easymotion-prefix)
 """"""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""
-" ultisnips
-Plug 'SirVer/ultisnips'
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-let g:ycm_key_list_previous_completion=['<Up>']
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-nnoremap <silent> <leader>ue :<C-u>UltiSnipsEdit<CR>
-""""""""""""""""""""""""""""""""""""""
 
 Plug 'pangloss/vim-javascript'
 
