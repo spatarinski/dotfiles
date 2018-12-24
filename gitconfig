@@ -1,6 +1,6 @@
 [user]
   name = Stanimir Patarinski
-  email = stanimir_patarinski@epam.com
+  email = stanimir.patarinski@accelya.com
 
 [push]
   default = tracking
@@ -14,7 +14,7 @@
   excludesfile = ~/.gitignore
   autocrlf = false
   whitespace = cr-at-eol
-  editor = mvim -v
+  editor = vim
 
 [format]
   pretty = %Cblue%h%Creset %Cgreen[%cr]%Creset (%an) %s
@@ -40,6 +40,7 @@
   ca = commit --amend
   catchup = "!git fetch origin; git rebase origin/master"
   rbd = "!git fetch origin; git rebase origin/dev"
+  rbm = "!git fetch origin; git rebase origin/master"
   # Alternate log display from Scott Chacon
   lol = log --pretty=oneline --abbrev-commit --graph --decorate
   sub = submodule update --init

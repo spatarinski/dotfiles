@@ -28,13 +28,13 @@ set undofile
 set nobackup
 set nowritebackup
 if (has("win32") || has("win64"))
-    set undodir=~/vimfiles/undo
-    set backupdir=~/vimfiles/backup
-    set directory=~/vimfiles/swp
+  set undodir=~/vimfiles/undo
+  set backupdir=~/vimfiles/backup
+  set directory=~/vimfiles/swp
 else
-    set undodir=~/.vim/undo
-    set backupdir=~/.vim/backup
-    set directory=~/.vim/swp
+  set undodir=~/.vim/undo
+  set backupdir=~/.vim/backup
+  set directory=~/.vim/swp
 endif
 
 " Remember last location in file
@@ -51,6 +51,7 @@ autocmd BufRead,BufEnter .babelrc        set filetype=javascript
 
 let mapleader=" "
 nnoremap <leader>w :w<CR>
+nnoremap <leader>d :bufdo bd<CR>
 nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>sv :so $MYVIMRC<cr>
 cnoremap <C-n> <Up>
@@ -63,6 +64,9 @@ nnoremap <F10> :NERDTreeToggle <bar> bw <bar> NERDTreeToggle<CR> <C-W>l
 nnoremap <F8> :TagbarToggle<CR>
 nnoremap <F7> :setlocal spell! spell?<CR>
 
+" global search and replace
+nnoremap <leader>gf :args `ag -l`
+nnoremap <leader>gr :argdo %s///g
 
 noremap <C-J> <C-W>w
 noremap <C-K> <C-W>W
@@ -107,20 +111,22 @@ endif
 
 Plug 'majutsushi/tagbar'
 let g:tagbar_type_javascript = {
-    \ 'ctagstype' : 'JavaScript',
-    \ 'kinds'     : [
-        \ 'o:objects',
-        \ 'f:functions',
-        \ 'a:arrays',
-        \ 's:strings'
-    \ ]
-\ }
+      \ 'ctagstype' : 'JavaScript',
+      \ 'kinds'     : [
+      \ 'o:objects',
+      \ 'f:functions',
+      \ 'a:arrays',
+      \ 's:strings'
+      \ ]
+      \ }
 
 
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-obsession'
+Plug 'cakebaker/scss-syntax.vim'
 
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -134,11 +140,11 @@ Plug 'sickill/vim-monokai'
 " ack vim
 Plug 'mileszs/ack.vim'
 if executable('ag')
-    if (has("win32") || has("win64"))
-          let g:ackprg = 'c:\Users\patarinski\.ag\ag --hidden --vimgrep --ingnore node_modules'
-    else
-          let g:ackprg = 'ag --hidden --vimgrep --ignore node_modules --ignore .git '
-    endif
+  if (has("win32") || has("win64"))
+    let g:ackprg = 'c:\Users\patarinski\.ag\ag --hidden --vimgrep --ingnore node_modules'
+  else
+    let g:ackprg = 'ag --hidden --vimgrep --ignore node_modules --ignore .git '
+  endif
 endif
 
 """"""""""""""""""""""""""""""""""""""
@@ -163,7 +169,10 @@ nnoremap <silent> <leader>gb :<C-u>Gblame<CR>
 nnoremap <silent> <leader>gd :<C-u>Gvdiff<CR>
 nnoremap <silent> <leader>gj :<C-u>Gpull<CR>
 nnoremap <silent> <leader>gk :<C-u>Gpush<CR>
-nnoremap <silent> <leader>gf :<C-u>Gfetch<CR>
+" nnoremap <silent> <leader>gf :<C-u>Gfetch<CR>
+nnoremap <silent> <leader>gg :<C-u>GitGutter<CR>
+nnoremap <silent> <leader>gu :<C-u>GitGutterUndoHunk<CR>
+
 Plug 'junegunn/gv.vim'
 nnoremap <silent> <leader>gv :<C-u>GV?<CR>
 
@@ -171,6 +180,9 @@ Plug 'int3/vim-extradite'
 Plug 'airblade/vim-gitgutter'
 
 Plug 'Valloric/YouCompleteMe'
+let g:ycm_add_preview_to_completeopt = 0
+set completeopt-=preview
+
 Plug 'ryanoasis/vim-devicons'
 
 if !exists("g:ycm_semantic_triggers")
@@ -194,6 +206,8 @@ let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_check_on_open=1
 let g:syntastic_javascript_checkers=['eslint']
 let g:syntastic_typescript_checkers = ['tsuquyomi']
+let g:syntastic_scss_checkers=['sass_lint']
+let g:syntastic_sass_sass_args= '-I ' . getcwd()
 let g:syntastic_html_tidy_quiet_messages=1
 
 
@@ -213,13 +227,17 @@ nnoremap <leader>f :Autoformat<CR>
 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Quramy/tsuquyomi'
+autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
 
 let g:tsuquyomi_disable_quickfix = 0
 let g:tsuquyomi_use_vimproc = 1
+let g:tsuquyomi_shortest_import_path = 1
+let g:tsuquyomi_single_quote_import = 1
 let g:syntastic_typescript_checkers = ['']
 
 nnoremap <F12> :TsuDefinition<CR>
 nnoremap <leader>ti :TsuImport<CR>
+nnoremap <leader>tf :TsuQuickFix<CR>
 nnoremap <leader><F12> :TsuReferences<CR>
 """"""""""""""""""""""""""""""""""""""
 
@@ -240,8 +258,8 @@ Plug 'vim-airline/vim-airline-themes'
 
 let g:airline_powerline_fonts=1
 if (has("win32") || has("win64"))
-    let g:airline_left_sep=''
-    let g:airline_right_sep=''
+  let g:airline_left_sep=''
+  let g:airline_right_sep=''
 endif
 
 let g:airline#extensions#tabline#enabled = 1
@@ -264,9 +282,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_lazy_update = 100
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_max_files = 0
-let g:ctrlp_custom_ignore = '\v[\/](node_modules)$'
-
-
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|orderapi-ui|dist)$'
 
 """"""""""""""""""""""""""""""""""""""
 " DevIcons
@@ -287,6 +303,12 @@ let g:WebDevIconsOS = 'Darwin'
 autocmd FileType nerdtree setlocal nolist
 
 Plug 'editorconfig/editorconfig-vim'
+Plug 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger="<c-j>"
+
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+nnoremap <silent><leader>b :Buffer<CR>
 """"""""""""""""""""""""""""""""""""""
 call plug#end()
 """"""""""""""""""""""""""""""""""""""
@@ -298,11 +320,11 @@ colorscheme PaperColor
 
 " GUI, should wrap in has(gui)
 if has("gui_running")
-    " if (has("win32") || has("win64"))
-    "     set guifont=Consolas:h12:cDEFAULT anti linespace=0
-    " else
-    "     set guifont=Source\ Code\ Pro\ Light:h14 anti linespace=0
-    " endif
+  " if (has("win32") || has("win64"))
+  "     set guifont=Consolas:h12:cDEFAULT anti linespace=0
+  " else
+  "     set guifont=Source\ Code\ Pro\ Light:h14 anti linespace=0
+  " endif
 
   set guioptions=aci
 endif
@@ -333,7 +355,7 @@ endfunction
 function! NumberOfWindows()
   let i = 1
   while winbufnr(i) != -1
-  let i = i+1
+    let i = i+1
   endwhile
   return i - 1
 endfunction
@@ -343,18 +365,18 @@ function! DonotQuitLastWindow()
     let v:errmsg = ""
     silent! quit
     if v:errmsg != ""
-        "echohl ErrorMsg | echomsg v:errmsg | echohl NONE
-        "echoerr v:errmsg
-        echohl ErrorMsg | echo v:errmsg | echohl NONE
+      "echohl ErrorMsg | echomsg v:errmsg | echohl NONE
+      "echoerr v:errmsg
+      echohl ErrorMsg | echo v:errmsg | echohl NONE
     endif
   else
-     echohl Error | echo "Can't quit the last window..." | echohl None
+    echohl Error | echo "Can't quit the last window..." | echohl None
   endif
 endfunction
 
 if has("gui_running")
-    cnoreabbrev <expr> q getcmdtype() == ":" && getcmdline() == 'q' ? 'call DonotQuitLastWindow()' : 'q'
-    cnoreabbrev <expr> qa getcmdtype() == ":" && getcmdline() == 'qa' ? 'call DonotQuitLastWindow()' : 'qa'
+  cnoreabbrev <expr> q getcmdtype() == ":" && getcmdline() == 'q' ? 'call DonotQuitLastWindow()' : 'q'
+  cnoreabbrev <expr> qa getcmdtype() == ":" && getcmdline() == 'qa' ? 'call DonotQuitLastWindow()' : 'qa'
 endif
 
 " Highlight all instances of word under cursor, when idle.

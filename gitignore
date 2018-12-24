@@ -1,5 +1,4 @@
 .tern-project
-.editorconfig
 kendo.csproj
 kendo*.sln
 vwd.webinfo

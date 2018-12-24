@@ -1,13 +1,27 @@
 #!/bin/zsh
+alias vim="nvim"
+alias v="nvim"
+alias npmrc="nvim ~/.npmrc"
+
+alias sdk="~/mercator-sdk-ui/accelya-sdk"
+alias adm="~/apps/IndustrySolutions/ADM-KPI-App"
+
+alias build_sdk="~/mercator-ui-sdk/scripts && bash ./buildSdk"
+alias test_sdk="~/mercator-ui-sdk/scripts && bash ./unittestSdk"
+
+alias hmr="npm run hmr"
+alias npms="npm start"
+
+alias rmnm="rm -rf node_modules"
+
+alias bm="npm run build-modules"
+alias bma="npm run build-modules:async"
 
 alias g="git"
-alias npmd="npm run start:dev"
-alias npms="npm start"
-alias rmnm="rm -rf node_modules"
-alias rmnmi="rm -rf node_modules && npm i"
-alias rmnmn="rmnmi && node install.dev.js"
-alias rmnmnr="rmnmn && node recompile.js"
 alias gc="git clean -xdf"
+alias ea="nvim ~/.aliases";
+alias ryl="rm yarn.lock";
+
 alias ...="../../"
 alias ....="../../../"
 
@@ -21,7 +35,7 @@ case `uname -a` in
   *Darwin*)
     alias unsafe-chrome='open /Applications/Google\ Chrome.app --args --disable-web-security';
     alias tmux="tmux -2 -u";
-    alias vim="mvim -v"
+    # alias vim="mvim -v"
     # what?
     ;;
 esac
