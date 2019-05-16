@@ -151,8 +151,17 @@
 " }}}
 
 " System Settings  ----------------------------------------------------------{{{
+"
 
+  " Basics
+  set hidden lazyredraw showmode novisualbell number ttyfast
+
+  " Search
+  set hlsearch incsearch ignorecase smartcase
+
+  " better colors
   set termguicolors
+
   set mouse=a
 
   set clipboard+=unnamedplus
@@ -160,7 +169,6 @@
   set nopaste
   autocmd BufWritePre * %s/\s\+$//e
   filetype on
-  set number
   set numberwidth=1
   set tabstop=2 shiftwidth=2 expandtab
   set conceallevel=3
@@ -173,6 +181,7 @@
   set wildignore+=deploy/**,dist/**,release/**,*.min.js,*.js.map
 
   set autoread
+
   set updatetime=500
   set fillchars+=vert:│
 
@@ -219,9 +228,13 @@
   nnoremap <leader>P "0p
   vnoremap <leader>P "0p
 
-  nnoremap <F9> :bw<CR>
+  nnoremap <F9> :bw!<CR>
   nnoremap <F10> :NERDTreeToggle <bar> bw <bar> NERDTreeToggle<CR> <C-W>l
 
+
+  nnoremap <Leader>s :setlocal spell! spell?<CR>
+
+  autocmd FileType gitcommit setlocal tw=72 | set spell | set colorcolumn=50
 " }}}
 
 " Themes, Commands, etc  ----------------------------------------------------{{{
@@ -296,7 +309,7 @@
 
 " git mappings -------------------------------------------------------------{{{
 
-nnoremap <silent> <leader>gs :<C-u>Gstatus<CR>
+nnoremap <silent> <leader>gs :<C-u>Gstatus<CR>:15wincmd_<CR>
 nnoremap <silent> <leader>gw :<C-u>Gwrite<CR>
 nnoremap <silent> <leader>gr :<C-u>Gread<CR>
 nnoremap <silent> <leader>gb :<C-u>Gblame<CR>
@@ -429,7 +442,7 @@ let g:ycm_semantic_triggers['typescript'] = ['.']
         \ 'prompt': ' #' ,
         \})
 
-  call denite#custom#source('file_rec', 'vars', {
+  call denite#custom#source('file/rec', 'vars', {
         \'command': ['rg', '--files', '--glob', '!.git'],
         \'matchers': ['matcher/fruzzy'],
         \'sorters':['sorter_sublime'],
@@ -478,7 +491,7 @@ let g:ycm_semantic_triggers['typescript'] = ['.']
 
   call denite#custom#var('menu', 'menus', s:menus)
 
-  nnoremap <silent> <c-p> :Denite file_rec<CR>
+  nnoremap <silent> <c-p> :Denite file/rec<CR>
   " nnoremap <silent> <leader>h :Denite help<CR>
   " nnoremap <silent> <leader>v :Denite vison<CR>
   " nnoremap <silent> <leader>c :Denite -auto-preview colorscheme<CR>
@@ -594,6 +607,13 @@ let g:ycm_semantic_triggers['typescript'] = ['.']
     \ 'stdin': 1,
   \ }
 
+
+  let g:standard_tsfmt_settings = {
+    \ 'exe': 'tsfmt',
+    \ 'args': ['%:p'],
+    \ 'stdin': 1,
+  \ }
+
 " }}}
 
 " CSS -----------------------------------------------------------------------{{{
@@ -618,12 +638,13 @@ let g:ycm_semantic_triggers['typescript'] = ['.']
   map <silent> <leader>ti :TSImport <cr>
   nnoremap <F12> :TSDef<CR>
   nnoremap <leader><F12> :TSRefs<CR>
+  nnoremap <leader>td :TSDoc<CR>
+  nnoremap <leader>ts :TSGetDocSymbols<CR>
   nnoremap <m-Enter> :TSGetCodeFix<CR>
 
   let g:neoformat_typescript_prettier = g:standard_prettier_settings
   let g:neoformat_enabled_typescript = ['prettier']
-  let g:neoformat_typescript_prettier = g:standard_prettier_settings
-  let g:neoformat_enabled_typescript = ['prettier']
+
   let g:nvim_typescript#kind_symbols = {
       \ 'keyword': 'keyword',
       \ 'class': '',
@@ -676,9 +697,9 @@ let g:ycm_semantic_triggers['typescript'] = ['.']
 
 " HTML ----------------------------------------------------------------------{{{
 
-  let g:neoformat_enabled_html = ['htmlbeautify']
-  " let g:neoformat_html_prettier = g:standard_prettier_settings
-  " let g:neoformat_enabled_html = ['prettier']
+  " let g:neoformat_enabled_html = ['htmlbeautify']
+  let g:neoformat_html_prettier = g:standard_prettier_settings
+  let g:neoformat_enabled_html = ['prettier']
 
 " }}}
 
@@ -698,10 +719,12 @@ let g:ycm_semantic_triggers['typescript'] = ['.']
 
   let g:ale_sign_column_always = 1
 
-  let g:ale_fixers = {
-  \  'scss': ['stylelint'],
-  \  'typescript': ['tslint', 'prettier'],
-  \}
+let g:ale_fixers = {
+\  'html': ['prettier'],
+\  'scss': ['prettier', 'stylelint', 'trim_whitespace'],
+\  'typescript': ['tslint', 'prettier', 'trim_whitespace'],
+\  'javascript': ['prettier', 'trim_whitespace'],
+\}
 
   let g:ale_fix_on_save = 1
   let g:ale_javascript_prettier_use_local_config = 1
@@ -737,8 +760,3 @@ let g:ycm_semantic_triggers['typescript'] = ['.']
   endif
 
 "}}}
-  nnoremap <tab> >>
-  nnoremap <s-tab> <<
-  vnoremap <tab> >gv
-  vnoremap <s-tab> <gv
-
