@@ -130,7 +130,7 @@ elif type compctl &>/dev/null; then
 fi
 ###-end-npm-completion-###
 
-export PATH="$PATH:/Users/stanimir_patarinski/.gem/ruby/2.3.0/bin"
+#export PATH="$PATH:/Users/stanimir_patarinski/.gem/ruby/2.3.0/bin"
 
 export JAVA_HOME=$(/usr/libexec/java_home)
 
