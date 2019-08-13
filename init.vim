@@ -21,6 +21,8 @@ set mouse=a
 set undofile
 set nobackup
 set nowritebackup
+set noswapfile
+
 set undodir=~/.config/nvim/undo
 set backupdir=~/.config/nvim/backup
 set directory=~/.config/nvim/swp
@@ -136,12 +138,44 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 noremap <leader>n :NERDTreeToggle<CR>
 map <leader>r :NERDTreeFind<cr>
+let NERDTreeShowHidden=1
+let g:NERDTreeWinSize=45
+let NERDTreeIgnore=['\.git$[[dir]]']
+let NERDTreeDirArrowExpandable = "\u00a0"
+let NERDTreeDirArrowCollapsible = "\u00a0"
+
+Plug 'ryanoasis/vim-devicons'
+" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
+let g:WebDevIconsOS = 'Darwin'
+let g:NERDTreeGitStatusNodeColorization = 1
+let g:webdevicons_enable_airline_tabline = 1
+let g:webdevicons_enable_airline_statusline = 1
+
+" 
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:WebDevIconsOS = 'Darwin'
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['js'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vim'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['tsx'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['css'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['html'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['json'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['sql'] = ''
+
+
 
 """"""""""""""""""""""""""""""""""""""
 " Misc stuff
 """"""""""""""""""""""""""""""""""""""
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'hail2u/vim-css3-syntax'
+Plug 'ap/vim-css-color'
+
 Plug 'othree/html5.vim'
 Plug 'mattn/emmet-vim'
 
@@ -156,8 +190,7 @@ Plug 'morhetz/gruvbox'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'tellijo/vim-react-native-snippets'
-Plug 'joaohkfaria/vim-jest-snippets'
+Plug 'dominikduda/vim_es7_javascript_react_snippets'
 
 Plug 'easymotion/vim-easymotion'
 
@@ -169,10 +202,10 @@ map , <Plug>(easymotion-prefix)
 let g:ale_sign_column_always = 1
 let g:airline#extensions#ale#enabled = 1
 
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
-highlight ALEErrorSign ctermbg=NONE ctermfg=red
-highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+" let g:ale_sign_warning = '⚠'
+" let g:ale_sign_error = '✘'
+" highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+" highlight ALEErrorSign ctermbg=NONE ctermfg=red
 
 let g:ale_fixers = {
       \  'scss': ['prettier', 'trim_whitespace'],
@@ -218,6 +251,7 @@ nnoremap <Leader>s :setlocal spell! spell?<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gd :Gvdiff<CR>
 nnoremap <Leader>gr :Gread<CR>
+nnoremap <Leader>gb :Gblame<CR>
 
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
@@ -251,10 +285,10 @@ nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> td <Plug>(coc-definition)
+nmap <silent> ty <Plug>(coc-type-definition)
+nmap <silent> ti <Plug>(coc-implementation)
+nmap <silent> tr <Plug>(coc-references)
 
 
 " Use K for show documentation in preview window
@@ -275,8 +309,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+" vmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -293,7 +327,7 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 " Remap for do codeAction of current line
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>f  <Plug>(coc-fix-current)
 
 " Use `:Format` for format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -346,19 +380,6 @@ let g:coc_snippet_prev = '<c-k>'
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? coc#rpc#request('doKeymap', ['snippets-expand-jump','']) :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-let g:coc_snippet_next = '<tab>'
-
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.md,*.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml,*.html PrettierAsync
 
@@ -392,4 +413,17 @@ let g:rustfmt_autosave = 1
 " nnoremap <S-Tab> <<
 " vnoremap <Tab> >gv
 " vnoremap <S-Tab> <gv
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? coc#rpc#request('doKeymap', ['snippets-expand-jump','']) :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
 

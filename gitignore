@@ -7,3 +7,5 @@ vwd.webinfo
 tags
 .swo
 xsp
+node_modules
+/node_modules
