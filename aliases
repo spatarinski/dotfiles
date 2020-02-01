@@ -11,6 +11,7 @@ alias test_sdk="~/mercator-ui-sdk/scripts && bash ./unittestSdk"
 
 alias hmr="npm run hmr"
 alias npms="npm start"
+alias strd="npm run start:training:dev"
 alias npmt="npm run test:headless"
 
 alias rmnm="rm -rf node_modules"
@@ -23,7 +24,7 @@ alias gc="git clean -xdf"
 alias ea="nvim ~/.aliases";
 alias ryl="rm yarn.lock";
 
-alias reset-chrome="killall 'Google Chrome'; open -a 'Google Chrome' --args --disable-web-security --ignore-certificate-error --allow-running-insecure-content --disable-gpu --user-data-dir=~/chromeTemp";
+alias chrome-no-security="killall 'Google Chrome'; open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir='/tmp/chrome_dev_test' --disable-web-security";
 
 alias ...="../../"
 alias ....="../../../"
@@ -37,7 +38,7 @@ case `uname -a` in
     alias ls='ls --color=auto';;
   *Darwin*)
     alias unsafe-chrome='open /Applications/Google\ Chrome.app --args --disable-web-security';
-    alias tmux="tmux -2 -u";
+    # alias tmux="tmux -2 -u";
     # alias vim="mvim -v"
     # what?
     ;;

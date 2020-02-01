@@ -1,4 +1,3 @@
-" Basics
 set hidden lazyredraw showmode novisualbell number relativenumber ttyfast
 
 " Whitespace configuration
@@ -58,6 +57,13 @@ Plug 'rust-lang/rust.vim'
 Plug 'cespare/vim-toml'
 
 """"""""""""""""""""""""""""""""""""""
+" yaml
+""""""""""""""""""""""""""""""""""""""
+Plug 'stephpy/vim-yaml'
+Plug 'xavierchow/vim-swagger-preview'
+nmap <unique> <leader>v <Plug>GenerateDiagram
+
+""""""""""""""""""""""""""""""""""""""
 " TypeScript / tsx
 """"""""""""""""""""""""""""""""""""""
 Plug 'HerringtonDarkholme/yats.vim'
@@ -84,6 +90,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'int3/vim-extradite'
 Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/gv.vim'
 
 """"""""""""""""""""""""""""""""""""""
 " Ack
@@ -168,6 +175,8 @@ let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
 let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['sql'] = ''
 
 
+
+Plug 'janko/vim-test'
 
 """"""""""""""""""""""""""""""""""""""
 " Misc stuff
@@ -426,4 +435,3 @@ function! s:check_back_space() abort
 endfunction
 
 let g:coc_snippet_next = '<tab>'
-

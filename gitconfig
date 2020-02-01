@@ -1,6 +1,6 @@
 [user]
-  name = Stanimir Patarinski
-  email = stanimir.patarinski@accelya.com
+	name = Stanimir Patarinski
+	email = stanimir.patarinski@accelya.com
 
 [push]
   default = tracking
@@ -14,7 +14,7 @@
   excludesfile = ~/.gitignore
   autocrlf = false
   whitespace = cr-at-eol
-  editor = vim
+  editor = nvim
 
 [format]
   pretty = %Cblue%h%Creset %Cgreen[%cr]%Creset (%an) %s
