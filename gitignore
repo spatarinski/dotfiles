@@ -3,6 +3,8 @@ kendo.csproj
 kendo*.sln
 vwd.webinfo
 .vs/
+.vim/
+/perl
 .*.swp
 tags
 .swo

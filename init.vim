@@ -77,12 +77,6 @@ Plug 'othree/yajs.vim'
 Plug 'mxw/vim-jsx'
 
 """"""""""""""""""""""""""""""""""""""
-" ALE
-""""""""""""""""""""""""""""""""""""""
-Plug 'w0rp/ale'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-
-""""""""""""""""""""""""""""""""""""""
 " Git
 """"""""""""""""""""""""""""""""""""""
 Plug 'tpope/vim-git'
@@ -195,8 +189,8 @@ Plug 'elzr/vim-json'
 
 Plug 'crusoexia/vim-monokai'
 Plug 'morhetz/gruvbox'
-
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'nanotech/jellybeans.vim'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'dominikduda/vim_es7_javascript_react_snippets'
@@ -208,33 +202,14 @@ call plug#end()
 
 map , <Plug>(easymotion-prefix)
 
-let g:ale_sign_column_always = 1
-let g:airline#extensions#ale#enabled = 1
-
-" let g:ale_sign_warning = '⚠'
-" let g:ale_sign_error = '✘'
-" highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
-" highlight ALEErrorSign ctermbg=NONE ctermfg=red
-
-let g:ale_fixers = {
-      \  'scss': ['prettier', 'trim_whitespace'],
-      \  'typescript': ['tslint',  'prettier', 'trim_whitespace'],
-      \  'javascript.jsx': ['prettier', 'eslint',  'trim_whitespace'],
-      \  'javascript.js': ['prettier', 'eslint',  'trim_whitespace'],
-      \}
-
-let g:ale_fix_on_save = 1
-let g:ale_javascript_prettier_use_local_config = 1
-
-let g:ale_linters = {
-      \   'scss': ['stylelint'],
-      \   'typescript': ['eslint'],
-      \}
-
 let g:gruvbox_italic = 0
 let g:gruvbox_contrast_light = 'soft'
 set background=dark
-colorscheme gruvbox
+
+let g:jellybeans_overrides = {
+\    'background': { 'guibg': 'NONE' },
+\}
+colorscheme jellybeans
 
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>ev :e $MYVIMRC<cr>
@@ -254,13 +229,13 @@ nnoremap <C-H> <C-W><C-H>
 
 
 nnoremap <leader>d :bp<cr>:bd #<cr>
-nnoremap <Leader>h :nohlsearch<CR>
-nnoremap <Leader>s :setlocal spell! spell?<CR>
+nnoremap <Leader>h :nohlsearch<cr>
+nnoremap <Leader>s :setlocal spell! spell?<cr>
 
-nnoremap <Leader>gs :Gstatus<CR>
-nnoremap <Leader>gd :Gvdiff<CR>
-nnoremap <Leader>gr :Gread<CR>
-nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gs :Gstatus<cr>
+nnoremap <Leader>gd :Gvdiff<cr>
+nnoremap <Leader>gr :Gread<cr>
+nnoremap <Leader>gb :Gblame<cr>
 
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
@@ -270,6 +245,13 @@ set shortmess+=c
 
 " always show signcolumns
 set signcolumn=yes
+
+
+" nnoremap <Tab> >>
+" nnoremap <S-Tab> <<
+" vnoremap <Tab> >gv
+" vnoremap <S-Tab> <gv
+
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -389,39 +371,8 @@ let g:coc_snippet_prev = '<c-k>'
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.md,*.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml,*.html PrettierAsync
-
 let g:markdown_fenced_languages = ['ts=typescript', 'python', 'tsx=typescript']
 
-function! s:goyo_enter()
-  set noshowmode
-  set noshowcmd
-  set scrolloff=999
-  Limelight
-  set wrap
-  set linebreak
-  " ...
-endfunction
-
-function! s:goyo_leave()
-  set showmode
-  set showcmd
-  set scrolloff=5
-  Limelight!
-  set nowrap
-  set nolinebreak
-  " ...
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-let g:rustfmt_autosave = 1
-
-" nnoremap <Tab> >>
-" nnoremap <S-Tab> <<
-" vnoremap <Tab> >gv
-" vnoremap <S-Tab> <gv
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
