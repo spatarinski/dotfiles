@@ -1,6 +1,6 @@
 [user]
 	name = Stanimir Patarinski
-	email = stanimir.patarinski@accelya.com
+	email = stanimir_patarinski@epam.com
 
 [push]
   default = tracking
@@ -26,6 +26,8 @@
   rb = rebase
   ch = cherry-pick
   co = checkout
+	cod = checkout dev
+	coD = checkout Development
   pr = pull --rebase
   a = add
   bl = branch -r
@@ -40,6 +42,7 @@
   ca = commit --amend
   catchup = "!git fetch origin; git rebase origin/master"
   rbd = "!git fetch origin; git rebase origin/dev"
+  rbdl = "!git fetch origin; git rebase origin/Development"
   rbm = "!git fetch origin; git rebase origin/master"
   # Alternate log display from Scott Chacon
   lol = log --pretty=oneline --abbrev-commit --graph --decorate

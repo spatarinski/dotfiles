@@ -137,4 +137,27 @@ export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 
 # eval "$(gulp --completion=zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH="/Users/stanimir_patarinski/.gem/ruby/2.3.0/bin:$PATH"
+
+# ruby
+export PATH="/usr/local/lib/ruby/gems/2.7.0/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+# For compilers to find ruby 
+export LDFLAGS="-L/usr/local/opt/ruby/lib"
+export CPPFLAGS="-I/usr/local/opt/ruby/include"
+# For pkg-config to find ruby
+export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+
+# Dotnet tools
+export PATH="/Users/stanimir_patarinski/.dotnet/tools:$PATH:"
+# go
+export GOPATH=$HOME/go
+export PATH="/usr/local/go/bin:$PATH:"
+export PATH="/Users/stanimir_patarinski/go/bin:$PATH:"
+
+# MySql
+export PATH=/usr/local/mysql/bin:$PATH 
+export mysql_users_username=root
+export mysql_users_password=123Test1
+export mysql_users_host=127.0.0.1:3306
+export mysql_users_schema=users_db
+

@@ -6,7 +6,6 @@ vwd.webinfo
 .vim/
 /perl
 .*.swp
-tags
 .swo
 xsp
 node_modules

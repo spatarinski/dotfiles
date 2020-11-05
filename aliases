@@ -5,9 +5,13 @@ alias npmrc="nvim ~/.npmrc"
 alias sdk="~/mercator-sdk-ui/accelya-sdk"
 alias adm="~/apps/IndustrySolutions/ADM-KPI-App"
 alias nfe="~/NFE/frontend"
+alias tcn="~/tecan/mission-control-frontend"
+alias tcnt="~/tecan/mission-control-frontend && tmux"
 
 alias build_sdk="~/mercator-ui-sdk/scripts && bash ./buildSdk"
 alias test_sdk="~/mercator-ui-sdk/scripts && bash ./unittestSdk"
+
+alias killng="kill -9 \$(pgrep \"ng serve\")"
 
 alias hmr="npm run hmr"
 alias npms="npm start"
@@ -30,6 +34,8 @@ alias chrome-no-security="killall 'Google Chrome'; open -n -a /Applications/Goog
 
 alias ...="../../"
 alias ....="../../../"
+
+alias openports="sudo lsof -i -P -n | grep LISTEN"
 
 case `uname -a` in
   *Linux*)
